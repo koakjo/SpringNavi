@@ -11,11 +11,11 @@ import lombok.Data;
 @Table(name = "kafkaexec")
 @Data
 public class AsyncExec {
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
 	private long id;
-	
+
 	@Column(name = "status", nullable = false)
 	private String status;
 

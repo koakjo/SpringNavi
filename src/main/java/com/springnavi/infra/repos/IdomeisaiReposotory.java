@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.springnavi.infra.entity.Idomeisai;
 
 @Repository
-public interface IdomeisaiReposotory extends JpaRepository<Idomeisai,UUID>{
-	//カスタムクエリ。すごいですよね。
+public interface IdomeisaiReposotory extends JpaRepository<Idomeisai, UUID> {
+	// カスタムクエリ。すごいですよね。
 	List<Idomeisai> findByShimukekouza(String shimukekouza);
 }

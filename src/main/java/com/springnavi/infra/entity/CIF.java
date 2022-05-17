@@ -11,15 +11,15 @@ import lombok.Data;
 @Table(name = "cif")
 @Data
 public class CIF {
-	
+
 	@Id
 	@Column(name = "cifno", nullable = false)
 	private String cifno;
 
 	@Column(name = "name", nullable = false)
 	private String name;
-	
+
 	@Column(name = "password", nullable = false)
 	private String password;
-	
+
 }

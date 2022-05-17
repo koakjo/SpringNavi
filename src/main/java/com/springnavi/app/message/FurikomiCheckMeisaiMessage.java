@@ -12,9 +12,9 @@ public class FurikomiCheckMeisaiMessage {
 	public FurikomiCheckMeisaiMessage() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
-	
+
 	public UUID idono;
 	// status - 0:undone 1:done
 	public String status;
-	
+
 }

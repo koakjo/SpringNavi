@@ -11,15 +11,15 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AsyncFurikomiControllMessage {
-	
-	//kafkaバッチのID
+
+	// kafkaバッチのID
 	public long id;
-	//kafkaバッチの現在のステータス（レスポンス用）
+	// kafkaバッチの現在のステータス（レスポンス用）
 	public String status;
-	//kafkaバッチへのリクエスト
-	//1:起動、2:停止
+	// kafkaバッチへのリクエスト
+	// 1:起動、2:停止
 	public String request;
-	//メッセージ（レスポンス用）
+	// メッセージ（レスポンス用）
 	public String message;
 
 }

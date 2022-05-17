@@ -19,20 +19,19 @@ public class Idomeisai {
 	@Column(name = "idono", nullable = false)
 	private UUID idono;
 
-	
 	@Column(name = "kingaku", nullable = false)
 	private long kingaku;
-	
+
 	@Column(name = "shimukekouza", nullable = false)
 	private String shimukekouza;
-	
+
 	@Column(name = "hishimukekouza", nullable = false)
 	private String hishimukekouza;
-	
+
 	@Column(name = "status", nullable = false)
 	private String status;
-	
+
 	@Column(name = "exectime", nullable = false)
 	private String exectime;
-	
+
 }

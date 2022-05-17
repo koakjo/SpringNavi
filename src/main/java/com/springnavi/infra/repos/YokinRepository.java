@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.springnavi.infra.entity.Yokin;
 
 @Repository
-public interface YokinRepository extends JpaRepository<Yokin,String>{
+public interface YokinRepository extends JpaRepository<Yokin, String> {
 
 }

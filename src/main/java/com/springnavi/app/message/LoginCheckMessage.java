@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class LoginCheckMessage {
-	
+
 	private String cifno;
 	private String password;
 	private String outcome;

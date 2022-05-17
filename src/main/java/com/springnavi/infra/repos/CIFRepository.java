@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.springnavi.infra.entity.CIF;
 
 @Repository
-public interface CIFRepository extends JpaRepository<CIF,String>{
+public interface CIFRepository extends JpaRepository<CIF, String> {
 
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class FurikomiExecMessage {
-	
+
 	public String shimukekouza;
 	public String hishimukekouza;
 	public long kingaku;

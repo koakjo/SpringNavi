@@ -2,6 +2,7 @@ package com.springnavi.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,45 +28,43 @@ public class FurikomiService {
 	IdomeisaiReposotory idomeisaiRepos;
 	@Autowired
 	YokinRepository yokinRepos;
-	
+
 	/*
 	 * 振込電文キューイング
 	 */
 	@Transactional(isolation = Isolation.SERIALIZABLE)
-	public FurikomiExecMessage furikomiQueuing (FurikomiExecMessage furikomiExecMessage, String topicname){
-		
+	public FurikomiExecMessage furikomiQueuing(FurikomiExecMessage furikomiExecMessage, String topicname) {
+
 		try {
-		//明細番号の生成を行う
-		furikomiExecMessage.setIdono(UUID.randomUUID());
-		//タイムスタンプ取得
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		
-		//異動明細へインサート
-		Idomeisai idomeisai = new Idomeisai();
-		idomeisai.setIdono(furikomiExecMessage.getIdono());
-		idomeisai.setShimukekouza(furikomiExecMessage.getShimukekouza());
-		idomeisai.setHishimukekouza(furikomiExecMessage.getHishimukekouza());
-		idomeisai.setKingaku(furikomiExecMessage.getKingaku());
-		idomeisai.setExectime(format.format(calendar.getTime()));
-		idomeisai.setStatus("QUEUING");
-		
-		idomeisaiRepos.saveAndFlush(idomeisai);
-		
-		//キューイング
-		com.springnavi.app.GlobalValueables.producer.send(
-				new ProducerRecord<>(
-						topicname,
-						com.springnavi.app.GlobalValueables.mapper.writeValueAsString(furikomiExecMessage)));
-		return furikomiExecMessage;
-		
+			// 明細番号の生成を行う
+			furikomiExecMessage.setIdono(UUID.randomUUID());
+			// タイムスタンプ取得
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+			// 異動明細へインサート
+			Idomeisai idomeisai = new Idomeisai();
+			idomeisai.setIdono(furikomiExecMessage.getIdono());
+			idomeisai.setShimukekouza(furikomiExecMessage.getShimukekouza());
+			idomeisai.setHishimukekouza(furikomiExecMessage.getHishimukekouza());
+			idomeisai.setKingaku(furikomiExecMessage.getKingaku());
+			idomeisai.setExectime(format.format(calendar.getTime()));
+			idomeisai.setStatus("QUEUING");
+
+			idomeisaiRepos.saveAndFlush(idomeisai);
+
+			// キューイング
+			com.springnavi.app.GlobalValueables.producer.send(new ProducerRecord<>(topicname,
+					com.springnavi.app.GlobalValueables.mapper.writeValueAsString(furikomiExecMessage)));
+			return furikomiExecMessage;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			furikomiExecMessage.setIdono(null);
 			return furikomiExecMessage;
 		}
 	}
-	
+
 	/*
 	 * 疎通用テストメソッド
 	 */
@@ -74,5 +73,25 @@ public class FurikomiService {
 		Optional<CIF> cifLists = cifRepos.findById("0000001");
 		return cifLists.isPresent();
 	}
-	
+
+	/*
+	 * タイムアウトメソッド
+	 */
+	@Transactional(isolation = Isolation.SERIALIZABLE, timeout = 60)
+	public boolean testTimeOut() throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try {
+			System.out.println("timeout method started." + format.format(calendar.getTime()));
+			Thread.sleep(100000);
+			Optional<CIF> cifLists = cifRepos.findById("0000001");
+			return cifLists.isPresent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Calendar exCal = Calendar.getInstance();
+			System.out.println("timeout method exception     TIME:" + format.format(exCal.getTime()));
+			return false;
+		}
+	}
+
 }

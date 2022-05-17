@@ -20,12 +20,12 @@ import com.springnavi.infra.repos.IdomeisaiReposotory;
 
 @Service
 public class CheckService {
-	
+
 	@Autowired
 	CIFRepository cifRepos;
 	@Autowired
 	IdomeisaiReposotory idomeisaiRepos;
-	
+
 	/*
 	 * ログインチェック
 	 */
@@ -40,7 +40,7 @@ public class CheckService {
 		}
 		return loginCheckMessage;
 	}
-	
+
 	/*
 	 * 振込チェック
 	 */
@@ -50,10 +50,10 @@ public class CheckService {
 		List<Idomeisai> Lidomeisai = idomeisaiRepos.findByShimukekouza(furikomiCheckMessage.getShimukekouza());
 		Iterator<Idomeisai> it = Lidomeisai.iterator();
 		while (it.hasNext()) {
-			//Autowiredにしない理由は明確に新しいオブジェクト使いたかったからです
+			// Autowiredにしない理由は明確に新しいオブジェクト使いたかったからです
 			FurikomiCheckMeisaiMessage meisai = new FurikomiCheckMeisaiMessage();
 			Idomeisai idomeisai = new Idomeisai();
-			idomeisai = (Idomeisai)it.next();
+			idomeisai = (Idomeisai) it.next();
 			meisai.setIdono(idomeisai.getIdono());
 			meisai.setStatus(idomeisai.getStatus());
 			array.add(meisai);
@@ -61,5 +61,5 @@ public class CheckService {
 		furikomiCheckMessage.setMeisais(array);
 		return furikomiCheckMessage;
 	}
-	
+
 }

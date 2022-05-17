@@ -11,16 +11,15 @@ import lombok.Data;
 @Table(name = "yokin")
 @Data
 public class Yokin {
-	
+
 	@Id
 	@Column(name = "kouzabangou", nullable = false)
 	private String kouzabangou;
 
-	
 	@Column(name = "zandaka", nullable = false)
 	private long zandaka;
-	
+
 	@Column(name = "cifno", nullable = false)
 	private String cifno;
-	
+
 }

@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class FurikomiCheckMessage {
-	
+
 	@NonNull
 	public String shimukekouza;
 	public List<FurikomiCheckMeisaiMessage> meisais;
